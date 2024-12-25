@@ -30,8 +30,8 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public void addProduct(@RequestBody Product product) {
-        productService.addProduct(product);
+    public void addProduct(@RequestBody Product product, @RequestParam UUID categoryId) {
+        productService.addProduct(product, categoryId);
     }
 
     @PutMapping("/update/{id}")

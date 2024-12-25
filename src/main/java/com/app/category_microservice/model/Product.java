@@ -25,6 +25,10 @@ public class Product {
     @Column(nullable = false)
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     public UUID getId() {
         return id;
     }
@@ -49,12 +53,17 @@ public class Product {
         this.price = price;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", category=" + category.getName() +
                 '}';
     }
 }
