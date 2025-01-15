@@ -35,6 +35,9 @@ public class ProductService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category with id " + categoryId + " not found"));
         product.setCategory(category);
+        if (product.getAvailableStock() < 0) {
+            throw new IllegalArgumentException("Available stock cannot be negative");
+        }
         productRepository.save(product);
     }
 
@@ -43,6 +46,7 @@ public class ProductService {
                 () -> new IllegalArgumentException("Product with id " + id + " not found"));
         currentProduct.setName(updatedProduct.getName());
         currentProduct.setPrice(updatedProduct.getPrice());
+        currentProduct.setAvailableStock(updatedProduct.getAvailableStock());
         productRepository.save(currentProduct);
     }
 
