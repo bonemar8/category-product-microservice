@@ -38,6 +38,14 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- Google Cloud BOM -->
+			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-dependencies</artifactId>
+				<version>5.8.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -81,6 +89,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- for google cloud -->
+
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>spring-cloud-gcp-dependencies</artifactId>
+			<version>5.8.0</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
