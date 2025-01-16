@@ -44,4 +44,9 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @PutMapping("/decrementStock/{id}")
+    public void decrementStock(@PathVariable UUID id, @RequestParam int quantity) {
+        productService.decrementStock(id, quantity);
+    }
+
 }

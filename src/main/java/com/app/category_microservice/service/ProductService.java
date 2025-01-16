@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -52,6 +53,22 @@ public class ProductService {
 
     public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
+    }
+
+    public void decrementStock(UUID productId,  int quantity) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+
+            // Check if there is enough stock
+            if (product.getAvailableStock() >= quantity) {
+                product.setAvailableStock(product.getAvailableStock() - quantity);
+
+                // Save updated product back to the database
+                productRepository.save(product);
+            }
+        }
     }
 
 }
