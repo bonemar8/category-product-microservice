@@ -1,6 +1,7 @@
 package com.app.category_microservice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,11 @@ public class Product {
     private String name;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "Price has to be positive")
     private double price;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "Stock has to be positive")
     private int availableStock;
 
     @ManyToOne

@@ -4,6 +4,7 @@ import com.app.category_microservice.model.Category;
 import com.app.category_microservice.model.Product;
 import com.app.category_microservice.repository.CategoryRepository;
 import com.app.category_microservice.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ProductService {
 
     public void addProduct(Product product, UUID categoryId) {
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new IllegalArgumentException("Category with id " + categoryId + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Category with id " + categoryId + " not found"));
         product.setCategory(category);
         if (product.getAvailableStock() < 0) {
             throw new IllegalArgumentException("Available stock cannot be negative");
@@ -61,11 +62,9 @@ public class ProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
 
-            // Check if there is enough stock
             if (product.getAvailableStock() >= quantity) {
                 product.setAvailableStock(product.getAvailableStock() - quantity);
 
-                // Save updated product back to the database
                 productRepository.save(product);
             }
         }
